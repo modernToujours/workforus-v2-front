@@ -19,6 +19,8 @@
     "@mui/material": "^5.11.3",
     "@next/font": "^13.1.1",
     "@reduxjs/toolkit": "^1.9.1",
+    "@tanstack/react-query": "^4.20.9",
+    "@tanstack/react-query-devtools": "^4.20.9",
     "cookies-next": "^2.1.1",
     "eslint-plugin-jest-dom": "^4.0.3",
     "next": "^13.1.1",
