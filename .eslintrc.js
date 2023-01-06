@@ -4,37 +4,27 @@ module.exports = {
     browser: true,
     es6: true,
     node: true,
-    jest: true,
+    jest: true
   },
-  extends: [
-    'eslint:recommended',
-    'next',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:testing-library/react',
-    'plugin:jest-dom/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'plugin:@next/next/recommended',
-  ],
+  extends: ['eslint:recommended', 'next', 'plugin:react/recommended', 'plugin:react-hooks/recommended', 'plugin:testing-library/react', 'plugin:jest-dom/recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'plugin:@next/next/recommended', 'plugin:storybook/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: 'latest',
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   },
   settings: {
     react: {
-      version: 'detect',
-    },
-  },
+      version: 'detect'
+    }
+  }
 };
