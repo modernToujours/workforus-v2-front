@@ -2,8 +2,8 @@ import * as React from 'react';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import DrawerHeader from './DrawerHeader';
-import { useAppSelector } from '../../../reducers/hooks';
-import { selectIsDrawerOpen } from '../../../reducers/drawer/isDrawerOpenSlice';
+import { useAppSelector } from '../../../redux/hooks';
+import { selectIsDrawerOpen } from '../../../redux/drawer/isDrawerOpenSlice';
 import DrawerMenuList from './DrawerMenuList';
 
 export const drawerWidth = 240;
