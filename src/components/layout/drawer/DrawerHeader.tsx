@@ -1,10 +1,10 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../../reducers/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import {
   close,
   open,
   selectIsDrawerOpen,
-} from '../../../reducers/drawer/isDrawerOpenSlice';
+} from '../../../redux/drawer/isDrawerOpenSlice';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';

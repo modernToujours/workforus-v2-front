@@ -2,8 +2,18 @@ import { Box } from '@mui/material';
 import Head from 'next/head';
 import LoginLogo from '../src/components/pages/login/LoginLogo';
 import LoginForm from '../src/components/pages/login/LoginForm';
+import { useAuth } from '../src/hooks/useAuth';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { isLogin } = useAuth();
+
+  useEffect(() => {
+    if (isLogin) router.back();
+  }, [isLogin, router]);
+
   return (
     <div>
       <Head>
