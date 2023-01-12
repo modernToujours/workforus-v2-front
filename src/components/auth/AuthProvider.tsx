@@ -11,7 +11,6 @@ type AuthProvierProps = {
 };
 
 function AuthProvider({ children }: AuthProvierProps) {
-  const { id, name, roles, isLogin } = useAuth();
   const dispatch = useAppDispatch();
   const [token, setToken] = useState('');
 
@@ -29,16 +28,15 @@ function AuthProvider({ children }: AuthProvierProps) {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_ADDRESS}/auth`)
         .then((res) => {
-          console.log(res.data);
           dispatch(
             login({
-              id: res.data.login,
+              id: res.data.id,
               name: res.data.name,
               role: res.data.roles,
             }),
           );
         })
-        .catch((err) => {
+        .catch(() => {
           dispatch(logout);
         });
     } else {

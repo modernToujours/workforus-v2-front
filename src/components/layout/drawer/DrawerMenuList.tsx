@@ -63,7 +63,7 @@ function DrawerMenuList() {
   return (
     <List>
       {ListItems.map((item) => (
-        <Link key={item.key} href={`/${item.link}`}>
+        <Link key={item.key} href={`${item.link}`}>
           <ListItem disablePadding sx={{ display: 'block', mb: 1 }}>
             <ListItemButton
               sx={{
