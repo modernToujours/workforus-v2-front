@@ -7,11 +7,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '../src/lib/theme';
 import { CssBaseline } from '@mui/material';
 import { Provider } from 'react-redux';
-import { Box } from '@mui/material';
-import SideDrawer from '../src/components/layout/drawer/SideDrawer';
-import store from '../src/reducers/store';
-import HeaderAppbar from '../src/components/layout/appbar/HeaderAppbar';
-import Footer from '../src/components/layout/footer/Footer';
+import store from '../src/redux/store';
+import { QueryClientProvider } from '@tanstack/react-query';
+import queryClient from '../src/react-query/queryClient';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactElement, ReactNode } from 'react';
+import { NextPage } from 'next';
+import AuthProvider from '../src/components/auth/AuthProvider';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -19,33 +21,39 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = MyAppProps & {
+  Component: NextPageWithLayout;
+};
+
 export default function App({
   Component,
   pageProps,
   emotionCache = clientSideEmotionCache,
-}: MyAppProps) {
+}: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name="theme-color" content={theme.palette.primary.main} />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Box sx={{ display: 'flex' }}>
-            <HeaderAppbar />
-            <SideDrawer />
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
-            >
-              <Box sx={{ height: '50px' }} />
-              <Component {...pageProps} />
-              <Footer />
-            </Box>
-          </Box>
-        </ThemeProvider>
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              {getLayout(<Component {...pageProps} />)}
+            </ThemeProvider>
+          </AuthProvider>
+        </Provider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </CacheProvider>
   );
 }

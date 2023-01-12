@@ -1,5 +1,7 @@
 import { Box } from '@mui/material';
 import Head from 'next/head';
+import Layout from '../src/components/layout/Layout';
+import { NextPageContext } from 'next';
 
 export default function Home() {
   return (
@@ -13,3 +15,7 @@ export default function Home() {
     </div>
   );
 }
+
+Home.getLayout = function getLayout(page: React.ReactNode) {
+  return <Layout>{page}</Layout>;
+};

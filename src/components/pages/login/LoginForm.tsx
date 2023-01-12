@@ -6,11 +6,39 @@ import {
   InputAdornment,
   TextField,
 } from '@mui/material';
+import axios from 'axios';
+import { setCookie } from 'cookies-next';
 import React, { useState } from 'react';
+import { encrypt } from '../../../lib/encrypt';
+import { useRouter } from 'next/router';
 
 function LoginForm() {
+  const router = useRouter();
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    console.log(id, password);
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_ADDRESS}/login`, {
+        id,
+        password,
+      })
+      .then((res) => {
+        const token = res.headers['authorization'] as string;
+        const encryptedToken = encrypt(token);
+        setCookie('token', encryptedToken);
+        router.push('/');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
@@ -27,9 +55,11 @@ function LoginForm() {
         width: '300px',
         margin: '0 auto',
       }}
+      onSubmit={onSubmitHandler}
     >
       <TextField
-        id="login-id"
+        value={id}
+        onChange={(e) => setId(e.target.value)}
         sx={{ marginTop: 2, width: '300px' }}
         fullWidth
         required
@@ -43,6 +73,8 @@ function LoginForm() {
         }}
       />
       <TextField
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         sx={{ marginTop: 2 }}
         type={showPassword ? 'text' : 'password'}
         fullWidth
