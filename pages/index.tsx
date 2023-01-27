@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import Head from 'next/head';
 import Layout from '../src/components/layout/Layout';
-import { NextPageContext } from 'next';
 
 export default function Home() {
   return (

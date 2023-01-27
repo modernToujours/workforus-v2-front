@@ -24,7 +24,7 @@ export const authSlice = createSlice({
       state.id = action.payload.id;
       state.name = action.payload.name;
       state.roles = [];
-      action.payload.role?.forEach((role) => {
+      action.payload.roles?.forEach((role) => {
         state.roles.push(role.name);
       });
       state.isLogin = true;
