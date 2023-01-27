@@ -9,11 +9,13 @@ import {
 import axios from 'axios';
 import { setCookie } from 'cookies-next';
 import React, { useState } from 'react';
-import { encrypt } from '../../../lib/encrypt';
 import { useRouter } from 'next/router';
+import { useAppDispatch } from '../../../redux/hooks';
+import { login } from '../../../redux/auth/authSlice';
 
 function LoginForm() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -30,8 +32,8 @@ function LoginForm() {
       })
       .then((res) => {
         const token = res.headers['authorization'] as string;
-        const encryptedToken = encrypt(token);
-        setCookie('token', encryptedToken);
+        setCookie('token', token);
+        dispatch(login(res.data));
         router.push('/');
       })
       .catch((e) => {

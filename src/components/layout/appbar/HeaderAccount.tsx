@@ -51,25 +51,17 @@ function HeaderAccount() {
         </Box>
         <AccountCircle fontSize="large" />
       </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        {!isLogin ? (
+      {!isLogin ? (
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
           <MenuItem onClick={() => router.push('/login')}>Login</MenuItem>
-        ) : (
-          <>
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={logoutHandler}>Logout</MenuItem>
-          </>
-        )}
-      </Menu>
+        </Menu>
+      ) : (
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+        </Menu>
+      )}
     </div>
   );
 }
