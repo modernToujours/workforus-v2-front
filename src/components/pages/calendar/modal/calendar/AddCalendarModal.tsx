@@ -18,7 +18,6 @@ import {
   TextField,
 } from '@mui/material';
 import { useCalendarAdd } from '../../../../../hooks/calendar/useCalendar';
-import UserSearchBox from './UserSearchBox';
 
 const style = {
   position: 'absolute' as const,

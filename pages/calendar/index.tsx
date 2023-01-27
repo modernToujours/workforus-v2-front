@@ -3,6 +3,9 @@ import Head from 'next/head';
 import Layout from '../../src/components/layout/Layout';
 import CalendarMenuBox from '../../src/components/pages/calendar/menu/CalendarMenuBox';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useAuth } from '../../src/hooks/useAuth';
+import { useEffect } from 'react';
 
 const CalendarMain = dynamic(
   import('../../src/components/pages/calendar/main/CalendarMainBox'),
@@ -10,6 +13,12 @@ const CalendarMain = dynamic(
 );
 
 export default function CalendarPage() {
+  const router = useRouter();
+  const { isLogin } = useAuth();
+
+  useEffect(() => {
+    if (isLogin) router.push('/login');
+  }, [isLogin, router]);
   return (
     <div>
       <Head>
