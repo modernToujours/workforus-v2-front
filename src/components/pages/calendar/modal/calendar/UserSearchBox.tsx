@@ -43,7 +43,7 @@ const UserSearchBox: React.FC<UserSearchBoxPropsType> = ({
           setSearchList(
             res.data.filter((user: UserOptionType) => {
               if (
-                user.id !== id ||
+                user.id == id ||
                 existUsers.find((exist) => exist.id == user.id)
               )
                 return false;
@@ -58,7 +58,7 @@ const UserSearchBox: React.FC<UserSearchBoxPropsType> = ({
           setSearchList(
             res.data.filter((user: UserOptionType) => {
               if (
-                user.id !== id ||
+                user.id == id ||
                 existUsers.find((exist) => exist.id == user.id)
               )
                 return false;
