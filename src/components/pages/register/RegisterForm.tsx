@@ -61,7 +61,6 @@ function RegisterForm() {
   };
 
   const handleError = () => {
-    console.log(errors);
     if (errors.id) {
       setErrorMessage('ID 입력란을 다시 확인해주세요!');
     } else if (errors.name) {

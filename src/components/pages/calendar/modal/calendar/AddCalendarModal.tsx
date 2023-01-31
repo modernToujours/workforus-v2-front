@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { useCalendarAdd } from '../../../../../hooks/calendar/useCalendar';
 import UserSearchBox, { UserOptionType } from './UserSearchBox';
+import { setAlert } from '../../../../../redux/layout/alertbar';
 
 const style = {
   position: 'absolute' as const,
@@ -42,11 +43,34 @@ const AddCalendarModal = () => {
     modal.modal === 'addCalendar' ? true : false,
   );
   const [name, setName] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [access, setAccess] = useState('0');
   const [userList, setUserList] = useState<UserOptionType[]>([]);
 
+  const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    const newName = event.target.value;
+    setName(newName);
+    if (newName !== '' && (newName.length < 2 || newName.length > 6)) {
+      setErrorMessage('캘린더 이름은 2~6글자를 입력해주세요.');
+    } else {
+      setErrorMessage('');
+    }
+  };
+
   const handleAccess = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAccess(event.target.name);
+  };
+
+  const addUser = (user: UserOptionType) => {
+    setUserList((prev) => [...prev, user]);
+  };
+
+  const handleError = () => {
+    dispatch(
+      setAlert({ message: '캘린더 이름란을 확인해주세요.', severity: 'error' }),
+    );
   };
 
   const handleSave = async () => {
@@ -56,17 +80,21 @@ const AddCalendarModal = () => {
       access: access,
       sharers: sharers,
     };
-    await addCalendar.mutateAsync(calendar);
-    handleClose();
+    if (name.length < 2 || name.length > 6) {
+      setErrorMessage('캘린더 이름을 입력해주세요.');
+      handleError();
+    } else {
+      await addCalendar.mutateAsync(calendar);
+      dispatch(
+        setAlert({ message: '캘린더를 생성하셨습니다.', severity: 'info' }),
+      );
+      handleClose();
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
     dispatch(setModal({ modal: '' }));
-  };
-
-  const addUser = (user: UserOptionType) => {
-    setUserList((prev) => [...prev, user]);
   };
 
   return (
@@ -81,7 +109,9 @@ const AddCalendarModal = () => {
           <TextField
             variant="outlined"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            error={!!errorMessage}
+            helperText={errorMessage}
+            onChange={handleNameChange}
           />
         </FormControl>
         <FormControl component="fieldset" sx={{ m: 3 }} variant="standard">
@@ -119,17 +149,24 @@ const AddCalendarModal = () => {
             />
           </FormGroup>
         </FormControl>
-        <Box>공유상대 추가</Box>
-        <UserSearchBox addUser={addUser} />
-        <Box>
-          <Box>공유상대 목록</Box>
-          {userList.map((user) => {
-            return (
-              <Box key={user.id} sx={{ display: 'flex' }}>
-                {user.name}
+        <Box sx={{ m: 3 }}>
+          <Box>공유상대 추가</Box>
+
+          <UserSearchBox addUser={addUser} existUsers={userList} />
+          {userList.length !== 0 && (
+            <>
+              <Box sx={{ mt: 2 }}>
+                <Box>공유상대 목록</Box>
+                {userList.map((user) => {
+                  return (
+                    <Box key={user.id} sx={{ display: 'flex' }}>
+                      {user.name}({user.id})
+                    </Box>
+                  );
+                })}
               </Box>
-            );
-          })}
+            </>
+          )}
         </Box>
         <Button onClick={handleSave}>저장</Button>
       </Box>
