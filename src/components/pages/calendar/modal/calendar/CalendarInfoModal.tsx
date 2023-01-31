@@ -22,6 +22,7 @@ import {
   useCalendarDelete,
   useCalendarUpdate,
 } from '../../../../../hooks/calendar/useCalendar';
+import { setAlert } from '../../../../../redux/layout/alertbar';
 
 const style = {
   position: 'absolute' as const,
@@ -49,14 +50,33 @@ const CalendarInfoModal = () => {
   const { calendar, isLoading } = useCalendar(modal.detail!);
   const [name, setName] = useState('');
   const [access, setAccess] = useState('0');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     setAccess(calendar.access);
     setName(calendar.name);
   }, [calendar, isLoading]);
 
+  const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    const newName = event.target.value;
+    setName(newName);
+    if (newName !== '' && (newName.length < 2 || newName.length > 6)) {
+      setErrorMessage('캘린더 이름은 2~6글자를 입력해주세요.');
+    } else {
+      setErrorMessage('');
+    }
+  };
+
   const handleAccess = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAccess(event.target.name);
+  };
+
+  const handleError = () => {
+    dispatch(
+      setAlert({ message: '캘린더 이름란을 확인해주세요.', severity: 'error' }),
+    );
   };
 
   const handleUpdate = async () => {
@@ -65,8 +85,19 @@ const CalendarInfoModal = () => {
       name: name,
       access: access,
     };
-    await updateCalendar.mutateAsync(cal);
-    handleClose();
+    if (name.length < 2 || name.length > 6) {
+      setErrorMessage('캘린더 이름을 입력해주세요.');
+      handleError();
+    } else {
+      await updateCalendar.mutateAsync(cal);
+      dispatch(
+        setAlert({
+          message: '캘린더 수정이 완료되었습니다.',
+          severity: 'info',
+        }),
+      );
+      handleClose();
+    }
   };
 
   const handleDelete = async () => {
@@ -97,7 +128,7 @@ const CalendarInfoModal = () => {
           <TextField
             variant="outlined"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
           />
         </FormControl>
         <FormControl component="fieldset" sx={{ m: 3 }} variant="standard">
