@@ -5,6 +5,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useAppDispatch } from '../../../redux/hooks';
 import { logout } from '../../../redux/auth/authSlice';
 import { useRouter } from 'next/router';
+import { setCookie } from 'cookies-next';
 
 function HeaderAccount() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -23,6 +24,7 @@ function HeaderAccount() {
 
   const logoutHandler = () => {
     dispacth(logout());
+    setCookie('token', null);
     handleClose();
     router.push('/login');
   };

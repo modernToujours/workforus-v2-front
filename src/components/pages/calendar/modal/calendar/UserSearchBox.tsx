@@ -10,9 +10,17 @@ import {
 import React, { useState } from 'react';
 import customAxios from '../../../../../lib/customAxios';
 
-const UserSearchBox = () => {
-  const [option, setOption] = React.useState('');
+export type UserOptionType = {
+  id: string;
+  name: string;
+};
 
+type UserSearchBoxPropsType = {
+  addUser: (user: UserOptionType) => void;
+};
+
+const UserSearchBox: React.FC<UserSearchBoxPropsType> = ({ addUser }) => {
+  const [option, setOption] = React.useState('');
   const [searchList, setSearchList] = useState<{ id: string; name: string }[]>(
     [],
   );
@@ -20,6 +28,7 @@ const UserSearchBox = () => {
   const handleOptionChange = (event: SelectChangeEvent) => {
     setOption(event.target.value as string);
   };
+
   const handleAutoComplete = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (option === '이름')
       customAxios()
@@ -50,13 +59,15 @@ const UserSearchBox = () => {
           >
             <Box sx={{ flex: 1 }}>사번 : {option.id}</Box>
             <Box sx={{ flex: 1 }}>이름 : {option.name}</Box>
+            <Button sx={{ flex: 1 }} onClick={() => addUser(option)}>
+              추가
+            </Button>
           </Box>
         )}
         renderInput={(params) => (
           <TextField {...params} onChange={handleAutoComplete} />
         )}
       />
-      <Button sx={{ flex: 1 }}>추가</Button>
     </Box>
   );
 };

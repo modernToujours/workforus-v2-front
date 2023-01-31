@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import HeaderAppbar from './appbar/HeaderAppbar';
 import SideDrawer from './drawer/SideDrawer';
 import Footer from './footer/Footer';
+import AlertBar from './snackbar/AlertBar';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ function Layout({ children }: LayoutProps) {
         {children}
         <Footer />
       </Box>
+      <AlertBar />
     </Box>
   );
 }

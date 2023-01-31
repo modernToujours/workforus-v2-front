@@ -18,6 +18,7 @@ import {
   TextField,
 } from '@mui/material';
 import { useCalendarAdd } from '../../../../../hooks/calendar/useCalendar';
+import UserSearchBox, { UserOptionType } from './UserSearchBox';
 
 const style = {
   position: 'absolute' as const,
@@ -42,15 +43,18 @@ const AddCalendarModal = () => {
   );
   const [name, setName] = useState('');
   const [access, setAccess] = useState('0');
+  const [userList, setUserList] = useState<UserOptionType[]>([]);
 
   const handleAccess = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAccess(event.target.name);
   };
 
   const handleSave = async () => {
+    const sharers = userList.map((user) => user.id);
     const calendar = {
       name: name,
       access: access,
+      sharers: sharers,
     };
     await addCalendar.mutateAsync(calendar);
     handleClose();
@@ -59,6 +63,10 @@ const AddCalendarModal = () => {
   const handleClose = () => {
     setOpen(false);
     dispatch(setModal({ modal: '' }));
+  };
+
+  const addUser = (user: UserOptionType) => {
+    setUserList((prev) => [...prev, user]);
   };
 
   return (
@@ -111,7 +119,18 @@ const AddCalendarModal = () => {
             />
           </FormGroup>
         </FormControl>
-        {/* <UserSearchBox /> */}
+        <Box>공유상대 추가</Box>
+        <UserSearchBox addUser={addUser} />
+        <Box>
+          <Box>공유상대 목록</Box>
+          {userList.map((user) => {
+            return (
+              <Box key={user.id} sx={{ display: 'flex' }}>
+                {user.name}
+              </Box>
+            );
+          })}
+        </Box>
         <Button onClick={handleSave}>저장</Button>
       </Box>
     </Modal>
