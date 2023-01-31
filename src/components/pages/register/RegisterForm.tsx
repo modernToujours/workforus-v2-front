@@ -1,46 +1,83 @@
-import React, { useRef, useState } from 'react';
-import { Key, Person, Visibility, VisibilityOff } from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Button } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import IdField from './IdField';
+import NameField from './NameField';
+import PasswordField from './PasswordField';
+import { useAppDispatch } from '../../../redux/hooks';
+import { clearAlert, setAlert } from '../../../redux/layout/alertbar';
+
+interface RegisterInput {
+  id: string;
+  name: string;
+  password: string;
+}
 
 function RegisterForm() {
   const router = useRouter();
-  const idRef = useRef<HTMLInputElement | null>(null);
-  const nameRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const dispatch = useAppDispatch();
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterInput>();
 
   const submitHandler: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+    dispatch(clearAlert());
+    handleSubmit(onSubmit)().catch((error) => {
+      handleError();
+      console.log(error);
+    });
+  };
+
+  const onSubmit: SubmitHandler<RegisterInput> = ({ id, name, password }) => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_ADDRESS}/register`, {
-        id: idRef.current?.value,
-        name: nameRef.current?.value,
-        password: passwordRef.current?.value,
+        id: id,
+        name: name,
+        password: password,
       })
       .then((res) => {
+        dispatch(
+          setAlert({
+            message: '회원가입에 성공하셨습니다!!',
+            severity: 'info',
+          }),
+        );
         if (res) router.push('/login');
         else console.log(res);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(() => {
+        setAlert({
+          message: '회원가입에 실패하셨습니다!!',
+          severity: 'error',
+        });
       });
+  };
+
+  const handleError = () => {
+    console.log(errors);
+    if (errors.id) {
+      setErrorMessage('ID 입력란을 다시 확인해주세요!');
+    } else if (errors.name) {
+      setErrorMessage('이름 입력란을 다시 확인해주세요!');
+    } else if (errors.password) {
+      setErrorMessage('패스워드 입력란을 다시 확인해주세요!');
+    } else {
+      setErrorMessage('');
+    }
+    errorMessage &&
+      dispatch(
+        setAlert({
+          message: errorMessage,
+          severity: 'error',
+        }),
+      );
   };
 
   return (
@@ -56,64 +93,31 @@ function RegisterForm() {
         margin: '0 auto',
       }}
     >
-      <TextField
-        name="id"
-        sx={{ marginTop: 2, width: '300px' }}
-        inputRef={idRef}
-        label="ID"
-        fullWidth
-        required
-        color="primary"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Person />
-            </InputAdornment>
-          ),
-        }}
+      <IdField
+        register={register('id', {
+          required: true,
+          minLength: 5,
+          maxLength: 10,
+          pattern: /^[a-zA-Z0-9]*$/,
+        })}
+        isLogin={false}
       />
-      <TextField
-        name="name"
-        sx={{ marginTop: 2 }}
-        inputRef={nameRef}
-        type="text"
-        label="Name"
-        fullWidth
-        required
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Key />
-            </InputAdornment>
-          ),
-        }}
+      <NameField
+        register={register('name', {
+          required: true,
+          minLength: 2,
+          maxLength: 6,
+          pattern: /^[가-힣]*$/,
+        })}
       />
-      <TextField
-        name="password"
-        inputRef={passwordRef}
-        sx={{ marginTop: 2 }}
-        type={showPassword ? 'text' : 'password'}
-        label="Password"
-        fullWidth
-        required
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Key />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
+      <PasswordField
+        register={register('password', {
+          required: true,
+          minLength: 8,
+          maxLength: 15,
+          pattern:
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])[a-zA-Z\d`~!@#$%^&*()-_=+]*$/,
+        })}
       />
       <Button variant="outlined" sx={{ marginTop: 3 }} type="submit">
         회원가입

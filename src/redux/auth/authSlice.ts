@@ -7,6 +7,7 @@ interface AuthState {
   name: string | undefined;
   roles: string[];
   isLogin: boolean;
+  isLoading?: boolean;
 }
 
 const initialState: AuthState = {
@@ -14,12 +15,16 @@ const initialState: AuthState = {
   name: undefined,
   roles: ['GUEST'],
   isLogin: false,
+  isLoading: true,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    loading: (state) => {
+      state.isLoading = true;
+    },
     login: (state, action: PayloadAction<UserType>) => {
       state.id = action.payload.id;
       state.name = action.payload.name;
@@ -28,17 +33,19 @@ export const authSlice = createSlice({
         state.roles.push(role.name);
       });
       state.isLogin = true;
+      state.isLoading = false;
     },
     logout: (state) => {
       state.id = undefined;
       state.name = undefined;
       state.roles = ['guest'];
       state.isLogin = false;
+      state.isLoading = false;
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, loading } = authSlice.actions;
 
 export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;

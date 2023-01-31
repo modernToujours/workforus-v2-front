@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { getCookie } from 'cookies-next';
 import { useAppDispatch } from '../../redux/hooks';
-import { login, logout } from '../../redux/auth/authSlice';
+import { loading, login, logout } from '../../redux/auth/authSlice';
 import customAxios from '../../lib/customAxios';
 
 type AuthProvierProps = {
@@ -14,6 +14,7 @@ function AuthProvider({ children }: AuthProvierProps) {
 
   useEffect(() => {
     if (token) {
+      dispatch(loading());
       customAxios()
         .get(`${process.env.NEXT_PUBLIC_API_ADDRESS}/auth`)
         .then((res) => {
@@ -25,11 +26,11 @@ function AuthProvider({ children }: AuthProvierProps) {
             }),
           );
         })
-        .catch(() => {
-          dispatch(logout);
+        .catch((e) => {
+          dispatch(logout());
         });
     } else {
-      dispatch(logout);
+      dispatch(logout());
     }
   }, [dispatch, token]);
 

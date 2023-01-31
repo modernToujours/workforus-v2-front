@@ -1,8 +1,36 @@
 import { Box } from '@mui/material';
 import Head from 'next/head';
 import Layout from '../src/components/layout/Layout';
+import { useRouter } from 'next/router';
+import { useAuth } from '../src/hooks/useAuth';
+import { useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Home() {
+  const router = useRouter();
+  const { isLogin, isLoading } = useAuth();
+
+  useEffect(() => {
+    if (!isLogin && !isLoading) router.push('/login');
+  }, [isLogin, isLoading, router]);
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          height: '800px',
+          justifyContent: 'center',
+        }}
+      >
+        <Box>
+          <CircularProgress />
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <div>
       <Head>

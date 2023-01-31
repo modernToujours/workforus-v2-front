@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import AlertBarReducer from './layout/alertbar';
 import isDrawerOpenReducer from './drawer/isDrawerOpenSlice';
 import authReducer from './auth/authSlice';
 import calendarViewReducer from './calendar/calendarViewSlice';
@@ -11,6 +12,7 @@ import calendarVisibilityReducer from './calendar/calendarVisibilitySlice';
 
 const store = configureStore({
   reducer: {
+    alertbar: AlertBarReducer,
     isDrawerOpen: isDrawerOpenReducer,
     auth: authReducer,
     calendarView: calendarViewReducer,

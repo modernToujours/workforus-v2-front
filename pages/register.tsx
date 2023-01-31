@@ -1,18 +1,43 @@
-import { Box } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import LoginLogo from '../src/components/pages/login/LoginLogo';
 import RegisterForm from '../src/components/pages/register/RegisterForm';
 import { useRouter } from 'next/router';
 import { useAuth } from '../src/hooks/useAuth';
+import AlertBar from '../src/components/layout/snackbar/AlertBar';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { isLogin } = useAuth();
+  const { isLogin, isLoading } = useAuth();
 
   useEffect(() => {
-    if (isLogin) router.back();
-  }, [isLogin, router]);
+    if (isLogin && !isLoading) router.push('/login');
+  }, [isLogin, isLoading, router]);
+
+  const RegisterSkeleton = () => {
+    return (
+      <>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Skeleton width={260} height={80} />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '300px',
+            margin: '0 auto',
+          }}
+        >
+          <Skeleton width={300} height={80} />
+          <Skeleton width={300} height={80} />
+          <Skeleton width={300} height={80} />
+          <Skeleton width={300} height={50} />
+        </Box>
+      </>
+    );
+  };
 
   return (
     <div>
@@ -29,9 +54,24 @@ export default function RegisterPage() {
           flexDirection: 'column',
         }}
       >
-        <LoginLogo />
-        <RegisterForm />
+        {!isLoading && !isLogin ? (
+          <>
+            <LoginLogo />
+            <RegisterForm />
+          </>
+        ) : (
+          <RegisterSkeleton />
+        )}
       </Box>
     </div>
   );
 }
+
+RegisterPage.getLayout = function getLayout(page: React.ReactNode) {
+  return (
+    <>
+      {page}
+      <AlertBar />
+    </>
+  );
+};
