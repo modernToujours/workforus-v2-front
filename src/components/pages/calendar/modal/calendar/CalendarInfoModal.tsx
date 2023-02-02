@@ -129,6 +129,7 @@ const CalendarInfoModal = () => {
             variant="outlined"
             value={name}
             onChange={handleNameChange}
+            helperText={errorMessage}
           />
         </FormControl>
         <FormControl component="fieldset" sx={{ m: 3 }} variant="standard">
@@ -166,7 +167,7 @@ const CalendarInfoModal = () => {
             />
           </FormGroup>
         </FormControl>
-        <Box justifyContent="flex-end">
+        <Box display="flex" justifyContent="flex-end">
           <Button onClick={handleUpdate}>수정</Button>
           <Button onClick={handleDelete}>삭제</Button>
         </Box>

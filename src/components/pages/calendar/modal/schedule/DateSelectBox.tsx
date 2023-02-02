@@ -39,12 +39,14 @@ const DateSelectBox = () => {
           onChange={(e) => setDateStart(e.target.value)}
           label="일정 시작 날짜"
           variant="outlined"
+          sx={{ mt: 1 }}
           value={dateStart}
         />
         {!isAllday && (
           <TextField
             type="time"
             value={timeStart}
+            sx={{ mt: 1 }}
             onChange={(e) => setTimeStart(e.target.value)}
           />
         )}
@@ -55,12 +57,14 @@ const DateSelectBox = () => {
           onChange={(e) => setDateEnd(e.target.value)}
           label="일정 종료 날짜"
           variant="outlined"
+          sx={{ mt: 1 }}
           value={dateEnd}
         />
         {!isAllday && (
           <TextField
             type="time"
             value={timeEnd}
+            sx={{ mt: 1 }}
             onChange={(e) => setTimeEnd(e.target.value)}
           />
         )}
