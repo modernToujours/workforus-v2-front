@@ -3,6 +3,7 @@ import { CalendarShareType } from '../../lib/types';
 import { AxiosError } from 'axios';
 import { queryKeys } from '../../react-query/queryKeys';
 import {
+  deleteCalendarShare,
   getCalendarShare,
   getSharingSchedules,
   postCalendarShare,
@@ -49,4 +50,15 @@ export const useCalendarShareAdd = () => {
       queryClient.invalidateQueries([queryKeys.sharingCalendar]);
     },
   });
+};
+
+export const useCalendarShareDelete = () => {
+  return useMutation(
+    (calendarShareId: number) => deleteCalendarShare(calendarShareId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([queryKeys.sharingCalendar]);
+      },
+    },
+  );
 };

@@ -40,23 +40,26 @@ const SharingCalendars = () => {
           {calendarShares.calendarShares.map((calendarShare) => {
             return (
               <ListItem
-                key={calendarShare.calendar.id}
+                key={calendarShare.id}
                 sx={{
                   display: 'flex',
                 }}
               >
                 <ListItemButton
-                  sx={{ flex: 5 }}
+                  sx={{ flex: 5, flexDirection: 'column' }}
                   onClick={() =>
                     dispatch(
                       setModal({
-                        modal: 'infoCalendar',
-                        detail: calendarShare.calendar.id,
+                        modal: 'infoShareCalendar',
+                        detail: calendarShare.id,
                       }),
                     )
                   }
                 >
                   <Typography>{calendarShare.calendar.name}</Typography>
+                  <Typography fontSize="8px">
+                    ({calendarShare.calendarOwnerName})
+                  </Typography>
                 </ListItemButton>
                 <Checkbox
                   defaultChecked

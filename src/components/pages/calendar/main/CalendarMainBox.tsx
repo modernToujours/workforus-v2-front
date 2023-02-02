@@ -9,6 +9,7 @@ import AddCalendarModal from '../modal/calendar/AddCalendarModal';
 import CalendarInfoModal from '../modal/calendar/CalendarInfoModal';
 import ScheduleInfoModal from '../modal/schedule/ScheduleInfoModal';
 import AddSharingCalendarModal from '../modal/calendar/AddSharingCalendarModal';
+import SharingCalendarInfoModal from '../modal/calendar/SharingCalendarInfoModal';
 
 const CalendarWrapper = dynamic(import('./CalendarWrapper'), { ssr: false });
 
@@ -27,6 +28,8 @@ const CalendarMainBox = () => {
         return <ScheduleInfoModal />;
       case 'addShareCalendar':
         return <AddSharingCalendarModal />;
+      case 'infoShareCalendar':
+        return <SharingCalendarInfoModal />;
       default:
         return;
     }

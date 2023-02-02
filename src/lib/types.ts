@@ -28,5 +28,7 @@ export type ScheduleType = {
 export type CalendarShareType = {
   id?: number;
   employeeId?: number;
+  calendarOwnerId?: string;
+  calendarOwnerName?: string;
   calendar: CalendarType;
 };

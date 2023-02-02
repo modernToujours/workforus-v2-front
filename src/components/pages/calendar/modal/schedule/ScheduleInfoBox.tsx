@@ -33,7 +33,7 @@ const ScheduleInfoBox = () => {
 
   return (
     <>
-      <FormControl>
+      <FormControl sx={{ mt: 1 }}>
         <InputLabel id="calendar-name-label">캘린더</InputLabel>
         {!isLoading && (
           <Select
@@ -59,6 +59,7 @@ const ScheduleInfoBox = () => {
         label="일정 제목"
         variant="outlined"
         value={title}
+        sx={{ mt: 1 }}
         onChange={(e) => {
           setTitle(e.target.value);
           handleOnChange();
@@ -67,6 +68,7 @@ const ScheduleInfoBox = () => {
       <TextField
         label="일정 내용"
         variant="outlined"
+        sx={{ mt: 1 }}
         value={body}
         onChange={(e) => {
           setBody(e.target.value);

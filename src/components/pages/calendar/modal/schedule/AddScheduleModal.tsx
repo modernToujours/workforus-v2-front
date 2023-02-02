@@ -77,7 +77,9 @@ const AddScheduleModal = () => {
         <ScheduleInfoBox />
         <DateSelectBox />
         <Divider />
-        <Button onClick={handleSave}>저장</Button>
+        <Box display="flex" justifyContent="flex-end">
+          <Button onClick={handleSave}>저장</Button>
+        </Box>
       </Box>
     </Modal>
   );

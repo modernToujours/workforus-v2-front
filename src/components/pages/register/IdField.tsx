@@ -54,7 +54,7 @@ const IdField: React.FC<IdFieldProps> = ({ register, isLogin }) => {
     }, 800);
 
     return () => clearTimeout(timer);
-  }, [input]);
+  }, [input, isLogin]);
 
   return (
     <TextField

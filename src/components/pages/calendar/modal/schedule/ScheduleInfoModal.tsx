@@ -126,8 +126,10 @@ const ScheduleInfoModal = () => {
         <ScheduleInfoBox />
         <DateSelectBox />
         <Divider />
-        <Button onClick={handleUpdate}>수정</Button>
-        <Button onClick={handleDelete}>삭제</Button>
+        <Box display="flex" justifyContent="flex-end">
+          <Button onClick={handleUpdate}>수정</Button>
+          <Button onClick={handleDelete}>삭제</Button>
+        </Box>
       </Box>
     </Modal>
   );
