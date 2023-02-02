@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en" className={roboto.className}>
         <Head>
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="shortcut icon" href="/logo/favicon.ico" />
           <meta name="emotion-insertion-point" content="" />
           {(this.props as any).emotionStyleTags}
         </Head>
