@@ -4,8 +4,9 @@
 
 - [👋 **목차**](#-목차)
   - [**프로젝트 소개**](#프로젝트-소개)
-  - [**개발 환경**](#개발-환경)
-  - [**기능 소개**](#기능-소개)
+  - [**개발환경**](#개발-환경)
+  - [**설치하기**](#설치하기)
+  - [**기능소개**](#기능-소개)
   - [**배포**](#배포)
 
 ---
@@ -18,92 +19,6 @@
   - 우선 이전 [프로젝트(WorkForUs)](https://github.com/hong-yura/WorkForUs-Project)에서 맡았던 부분인 일정관리 파트와 로그인 및 회원가입 기능만 구현되어있습니다.
     <br>
     <br>
-
-<!-- --- -->
-
-<!-- ## **팀원 소개 및 역할 분담**
-
-<table>
-  <tbody>
-    <tr align="center">
-      <td>
-        <a href="https://github.com/hong-yura">
-          <img src="https://github.com/hong-yura.png" width="100" style="max-width: 100%;">
-        </a>
-        <br>
-      </td>
-      <td border-bottom="none">
-        <a href="https://github.com/boseuly">
-          <img src="https://github.com/boseuly.png" width="100" style="max-width: 100%;">
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/jaeeukim">
-          <img src="https://github.com/jaeeukim.png" width="100" style="max-width: 100%;">
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/modernToujours">
-          <img src="https://github.com/modernToujours.png" width="100" style="max-width: 100%;">
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/GYUYOEN">
-          <img src="https://github.com/GYUYOEN.png" width="100" style="max-width: 100%;">
-        </a>
-      </td>
-    </tr>
-    <tr align="center">
-      <td>
-        <a href="https://github.com/hong-yura">
-          <b>홍유라 (Hong Yura)</b>
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/boseuly">
-          <b>이보슬 (Lee Boseul)</b>
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/jaeeukim">
-          <b>김재은 (Kim Jaeun)</b>
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/modernToujours">
-          <b>최영원 (Choi Young Won)</b>
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/GYUYOEN">
-          <b>김규연 (Kim Gyuyoen)</b>
-        </a>
-      </td>
-    </tr>
-    <tr align="center">
-      <td>
-        관리자,
-        주소록,
-        배포
-      </td>
-      <td>게시판</td>
-      <td>
-        메일,
-        근태 관리
-      </td>
-      <td>
-        일정 관리,
-        배포
-      </td>
-      <td>
-        회원가입,
-        로그인,
-        메신저
-      </td>
-    </tr>
-  </tbody>
-</table>
-<br> -->
 
 ---
 
@@ -149,6 +64,14 @@
 
   <br>
 
+---
+
+## **설치하기**
+
+- [Wiki 링크](https://github.com/modernToujours/workforus-v2-front/wiki/%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+
+<br>
+  
 ---
 
 ## **기능 소개**
