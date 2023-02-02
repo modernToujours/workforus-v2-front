@@ -15,7 +15,15 @@
 - 소개
   - 이전에 진행한 [프로젝트(WorkForUs)](https://github.com/hong-yura/WorkForUs-Project)에서 아쉬웠던 부분을 보완하기 위해 진행한 프로젝트입니다.
   - 프론트엔드는 [Next.js](https://nextjs.org/), 백엔드는 [Spring Boot](https://spring.io/projects/spring-boot) 기반으로 제작 되었습니다.
-  - 우선 이전 [프로젝트(WorkForUs)](https://github.com/hong-yura/WorkForUs-Project)에서 맡았던 부분인 일정관리 파트와 로그인 및 회원가입 기능만 구현되어있습니다.
+  - 우선 **로그인 및 회원가입 기능**과 이전 프로젝트에서 맡았던 부분인 **일정관리 기능**만 구현되어있습니다.
+  
+- 보완점
+  - 이전 프로젝트에선 View 부분을 JSP 기반으로 했었는데 이번 프로젝트에선 typescript 기반의 Next.js 프로젝트로 분리하였습니다.
+  - 이전 프로젝트의 제가 맡았던 부분에서 react를 [Webjars](https://www.webjars.org/)를 이용해 es6의 module기능 없이 사용하여 IDE의 도움을 거의 받지 못하였는데
+  이번 프로젝트에선 그 부분이 개선되어 생산성이 향상되었습니다.
+  - redux, react-query를 사용하여 상태관리를 보다 효율적으로 하였습니다.
+  - api에 접근하는데 jwt 토큰 기반 인증을 추가하여 보안성을 향상시켰습니다.
+  
     <br>
     <br>
 
