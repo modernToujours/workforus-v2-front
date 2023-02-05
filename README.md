@@ -65,6 +65,8 @@
   ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?logo=nginx&logoColor=white)
   ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?logo=docker&logoColor=white)
   ![Vultr](https://img.shields.io/badge/Vultr-007BFC.svg?logo=vultr)
+  ![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?logo=jenkins&logoColor=white)
+  ![Oracle](https://img.shields.io/badge/OCI-F80000?logo=oracle&logoColor=white)
 
 - **VCS**
 
@@ -104,4 +106,5 @@
 - 프론트 부분은 [Vercel](https://vercel.com/)을 통해서 배포중 입니다.
 - [가비아](https://domain.gabia.com/)에서 구입한 [workforus.site](https://www.workforus.site)의 서브도메인을 [AWS Route53](https://aws.amazon.com/route53/)에서 호스팅 중 입니다.
 - 백엔드의 SSL 인증서는 [Let's Encrypt](https://letsencrypt.org/)와 [Certbot](https://certbot.eff.org/)을 사용하여 발급받아 [AWS EC2](https://aws.amazon.com/ec2/)에 호스팅 중인 [NginX](https://www.nginx.com/)로 구성된 리버스 프록시 서버에 적용하였습니다.
-- 백엔드 서버는 main branch에 push시 github action을 통해 테스트와 빌드를 거친후 docker image로 build되어 [Dockerhub](https://hub.docker.com/)로 push됩니다. 이후 [Vultr](https://my.vultr.com/)의 compute instance에서 dockerhub로 부터 이미지를 가져와 컨테이너를 통해 실행됩니다.
+- ~~백엔드 서버는 main branch에 push시 github action을 통해 테스트와 빌드를 거친후 docker image로 build되어 [Dockerhub](https://hub.docker.com/)로 push됩니다. ~~이후 [Vultr](https://my.vultr.com/)의 compute instance에서 dockerhub로 부터 이미지를 가져와 컨테이너를 통해 실행됩니다.~~(vultr 무료사용기간 만료로 변경하였습니다.)
+- dockerhub repository update시 jenkins에 webhook을 통해 build를 유발하고, docker container를 실행할 2개의 oracle cloud compute instance와 ec2의 nignx를 통해 blue green 배포를 합니다.
