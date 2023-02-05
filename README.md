@@ -67,6 +67,7 @@
   ![Vultr](https://img.shields.io/badge/Vultr-007BFC.svg?logo=vultr)
   ![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?logo=jenkins&logoColor=white)
   ![Oracle](https://img.shields.io/badge/OCI-F80000?logo=oracle&logoColor=white)
+  ![Raspberry Pi](https://img.shields.io/badge/-RaspberryPi-C51A4A?logo=Raspberry-Pi)
 
 - **VCS**
 
