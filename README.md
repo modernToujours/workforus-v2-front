@@ -87,7 +87,7 @@
 
 ## **기능 소개**
 
-- 추가 예정
+- [기능 소개 Wiki 링크](https://github.com/modernToujours/workforus-v2-front/wiki/2.-%EA%B8%B0%EB%8A%A5%EC%86%8C%EA%B0%9C)
 
 <br>
 
