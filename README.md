@@ -79,7 +79,7 @@
 
 ## **설치하기**
 
-- [Wiki 링크](https://github.com/modernToujours/workforus-v2-front/wiki/%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+- [Wiki 링크](https://github.com/modernToujours/workforus-v2-front/wiki/1.-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
 
 <br>
   
